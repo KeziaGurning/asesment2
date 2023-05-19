@@ -34,7 +34,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#wordTable').DataTable({
+            var table = $('#wordTable').DataTable({
                 ajax: {
                     url: 'https://api.datamuse.com/words?ml=ringing+in+the+ears',
                     dataSrc: ''
@@ -48,10 +48,10 @@
             $('#wordForm').submit(function(e) {
                 e.preventDefault();
 
-                var word = $('#wordInput').val();
-                var score = $('#scoreInput').val();
+                if (this.checkValidity()) {
+                    var word = $('#wordInput').val();
+                    var score = $('#scoreInput').val();
 
-                if (word && score) {
                     table.row.add({
                         "word": word,
                         "score": score
@@ -60,7 +60,7 @@
                     $('#wordInput').val('');
                     $('#scoreInput').val('');
                 } else {
-                    alert('Please enter both Word and Score.');
+                    alert('Please enter valid Word and Score.');
                 }
             });
         });
