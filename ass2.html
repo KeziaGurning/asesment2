@@ -7,6 +7,20 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
 </head>
 <body>
+    <form id="wordForm">
+        <div>
+            <label for="wordInput">Word:</label>
+            <input type="text" id="wordInput" name="wordInput">
+        </div>
+        <div>
+            <label for="scoreInput">Score:</label>
+            <input type="text" id="scoreInput" name="scoreInput">
+        </div>
+        <div>
+            <button type="submit">Add</button>
+        </div>
+    </form>
+
     <table id="wordTable" class="display">
         <thead>
             <tr>
@@ -29,6 +43,25 @@
                     { data: 'word' },
                     { data: 'score' }
                 ]
+            });
+
+            $('#wordForm').submit(function(e) {
+                e.preventDefault();
+
+                var word = $('#wordInput').val();
+                var score = $('#scoreInput').val();
+
+                if (word && score) {
+                    table.row.add({
+                        "word": word,
+                        "score": score
+                    }).draw();
+
+                    $('#wordInput').val('');
+                    $('#scoreInput').val('');
+                } else {
+                    alert('Please enter both Word and Score.');
+                }
             });
         });
     </script>
